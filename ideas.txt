@@ -1,0 +1,62 @@
+every action you take leaves behind a "temporal clone"-like thing that last for 4 turns. Many abilities work on these clones.
+
+General theme:
+Abilities reducing their paradox usage based on how many targets they hit?
+
+Lots of blinks, melee damage.
+
+Ability:
+Returns you to the manifested clone / use an ability with your oldest clone as the target of the talent
+
+Ability:
+Step through all your temporal clones, dealing damage around them
+
+Ability passive:
+on death, returns you your manifested clone, then goes on cooldown. Possibly some other drawbacks.
+
+Ability:
+lets you send all debilitating affecting you forward in time, letting you avoid them for a little while
+
+Ability:
+blink to targetted position. position has to be adjecent to an enemy. Gives you an attack against hte enemy on blink
+
+Ability:
+Phase out of existence for a couple of turns, preventing enemies from targetting you. Time passes as usual
+
+Ability:
+Choose a clone and blink to it
+
+Ability:
+Stop time and blink to a number of locations in succession, creating clones.
+
+Ability:
+Instantly go back in time to one of your clones, and force your enemies to attack where you just were (or the newly created clone if you will) for one turn
+
+Passive:
+Reduces paradox when you hit enemies with your weapons
+
+Ability:
+"dash" through an enemy, ending up "perpendicular" to it. Can only be used if the place you end up is not blocked
+
+
+#### Currently "implemented" ####
+
+*Timethief
+	Blessing of the past - passive, not unlearnable, learned at birth
+	Back to the past - Returns to your last clone
+	Aura of Sloth - Slows in radius
+		alternatively: more slow closer/further away enemies are
+		Additionally, apply some debuff that grows in power as they continue staying in range (just not make it too much like gloom)
+	Timely dash - Dash through target and daze
+
+*Timephase
+
+*Others
+    stabbystab - Instant melee attack with low cooldown, your main offensive attack, reduced cd by teleporting to clones? by teleporting?
+        ^ Or, better idea, not instant, but increases the duration of the clones. This way you dont lose any clones but its not a super free move that is insanely kiteable
+	tick tick time to stop - Stop time for a number of turns/untill paradox failure, lets you setup clones and position yourself and enemies. Long cooldown? No damage? How should you be able to place clones?
+	passive - Bonus temporal damage on hits that increases each time you hit targets or move more than 1 square each turn, decreasing over time? Maybe clones will attack nearby enemies for this damage too?
+	something - Time stops, you can teleport between clones (maybe enemies), dealing damage somehow, for x amount of times etc.
+	passive - Bonus damage attacks on using spells, and bonus damage to spells on doing attacks?
+	something - Shoot projectiles towards your clones? toward a clone? with knockback?
+	passive - projectiles are shot from your original position to your new position when you mvoe more than 1 distance. Possibly homing? effect both on enemies and allies? maybe even on clones
