@@ -18,7 +18,7 @@ newTalent{
 		if not moved then
 			return
 		end
-		if core.fov.distance(self.x, self.y, ox, oy) > 1 then --TODO: This might not work
+		if self.x and self.y and ox and oy and core.fov.distance(self.x, self.y, ox, oy) > 1 then --TODO: This might not work
 			game.logPlayer(self, "Pew pew")
 			local tg = {type="bolt", range=self:getTalentRange(t), talent=t, friendlyfire=false, friendlyblock=false, display={particle="discharge_bolt", trail="lighttrail"} }
 			tg.x = ox
@@ -51,14 +51,42 @@ newTalent{
 newTalent{
 	name = "Strike from before", short_name = "STRIKE_FROM_BEFORE",
 	type = {"chronomancy/alive_today", 3},
-	mode = "passive",
 	points = 5,
 	require = req1,
 	tactical = { ESCAPE = 2 },
+	getDamage = function(self, t) return self:combatTalentWeaponDamage(t, 0.2, 1.6) end,
+	action = function(self, t)
+		local attacked = {}
+		for clone_index, v in pairs(self.tthief_clones) do
+			local cx, cy = v.pos.x, v.pos.y
+			local grids = core.fov.circle_grids(cx, cy, 1, true)
+			for x, yy in pairs(grids) do for y, _ in pairs(yy) do
+				local actor = game.level.map(x, y, Map.ACTOR)
+				if actor and self:reactionToward(actor) < 0 and not attacked[actor] then
+					attacked[actor] = {clone_index, cx, cy}
+				end
+			end end
+		end
+
+		for actor, cpos in pairs(attacked) do
+			self:attackTarget(actor, nil, t.getDamage(self, t), true)
+			if actor:canBe("teleport") then
+				local old_clone = table.clone(self.tthief_clones[cpos[1]])
+				local new_x, new_y = actor.x, actor.y
+				actor:teleportRandom(cpos[2], cpos[3], 0)
+				old_clone.pos.x, old_clone.pos.y = new_x, new_y
+				local new_grids = {}
+				new_grids[new_x]={}
+				new_grids[new_x][new_y]=true
+				old_clone.eff.grids = new_grids
+
+				self.tthief_clones[cpos[1]] = old_clone
+			end
+		end
+	end,
 	info = function(self, t)
-		local damage = 2
-		local increase = 2
-		return ([[Each of your clones attack one enemy that are next to them (max 1 attack on each enemy) and swaps position with them.)]]):format(damage, increase)
+		local damage = t.getDamage(self, t)
+		return ([[Each of your clones attack one enemy that are next to them (max 1 attack on each enemy) for %d%% of your damage and swaps position with them. Oldest(or first) clone attacks first.)]]):format(damage * 100)
 	end
 }
 

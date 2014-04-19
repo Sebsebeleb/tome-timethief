@@ -29,6 +29,7 @@ newBirthDescriptor{
       ["chronomancy/timephase"]={true, 0.3},
       ["chronomancy/hurtoclock"]={true, 0.3},
 	  ["chronomancy/alive_today"]={true, 0.3},
+	  ["chronomancy/ten_past_death"]={true, 0.3},
 
    },
    birth_example_particles = "temporal_focus",
