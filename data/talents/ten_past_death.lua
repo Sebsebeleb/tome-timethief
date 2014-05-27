@@ -7,7 +7,7 @@ req1 = {
 
 newTalent{
 	name = "KOKOKOKOKORORKOKOKORKOROKOOROOO",
-	type = {"chronomancy/alive_today", 2},
+	type = {"chronomancy/alive_today", 1},
 	mode = "passive",
 	points = 5,
 	require = req1,
@@ -16,5 +16,20 @@ newTalent{
 		local damage = 2
 		local increase = 2
 		return ([[Attack and enemy and pin them in place for x turns]]):format(damage, increase)
+	end
+}
+
+
+newTalent{
+	name = "Boom bap",
+	type = {"chronomancy/alive_today", 2},
+	mode = "passive",
+	points = 5,
+	require = req1,
+	tactical = { ESCAPE = 2 },
+	info = function(self, t)
+		local damage = 2
+		local increase = 2
+		return ([[Aura around you that spreads like blight, dealign damage blah blah]]):format(damage, increase)
 	end
 }

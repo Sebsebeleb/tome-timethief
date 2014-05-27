@@ -9,5 +9,5 @@ homepage = ""
 description = [[Time thief]]
 hooks = true
 overload = true
-superload = false
+superload = true
 data = true

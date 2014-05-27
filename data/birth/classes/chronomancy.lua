@@ -8,7 +8,7 @@
 
 newBirthDescriptor{
    type = "subclass",
-   name = "TimeThief",
+   name = "Time Thief",
    desc = {
       "Blah",
       "#LIGHT_BLUE# * +4 Strength, +0 Dexterity, +1 Constitution",
@@ -18,12 +18,10 @@ newBirthDescriptor{
    power_source = { arcane = true, technique = true },
    random_rarity = 3,
    not_on_random_boss = ("no" == config.settings.tome.nullpack_npc_classes),
-   stats = { str=4, con=1, wil=4 },
+   stats = { dex=2, con=1, mag=4 },
    talents_types = {
 
       ["chronomancy/spacetime-weaving"]={true, 0.3},
-      ["chronomancy/spacetime-folding"]={true, 0.3},
-      ["chronomancy/temporal-combat"]={true, 0.3},
       ["chronomancy/chronomancy"]={true, 0.1},
       ["chronomancy/past"]={true, 0.3},
       ["chronomancy/timephase"]={true, 0.3},
@@ -36,12 +34,26 @@ newBirthDescriptor{
    talents = {
 
       [ActorTalents.T_WEAPON_COMBAT] = 1,
-      [ActorTalents.T_BLESSING_OF_THE_PAST] = 1,
+      [ActorTalents.T_BACK_TO_THE_PAST] = 1,
    },
    copy = {
-      resolvers.equip{ id=true,
-		       {type="weapon", subtype="longsword", name="iron longsword", autoreq=true, ego_chance=-1000},
-      },
+
+	   resolvers.equip{ id=true,
+		   {type="weapon", subtype="dagger", name="iron dagger", autoreq=true, ego_chance=-1000},
+		   {type="weapon", subtype="dagger", name="iron dagger", autoreq=true, ego_chance=-1000},
+		   {type="armor", subtype="light", name="rough leather armour", autoreq=true, ego_chance=-1000},
+	   },
+
+      resolvers.generic(function(self) self:birth_create_alchemist_golem() end),
+      innate_alchemy_golem = true,
+      birth_create_alchemist_golem = function(self)
+         -- We use a semi-nasty way of using the way golems are created for alchemist to create our ally.
+         if not self.tthief_ally then
+            local t = self:getTalentFromId(self.T_TWO_OF_ONE)
+            t.invoke_ally(self, t)
+         end
+      end,
+
    },
    copy_add = {
       life_rating = 1,
@@ -49,4 +61,4 @@ newBirthDescriptor{
 }
 
 -- Add to Chronomancers
-getBirthDescriptor("class","Chronomancer").descriptor_choices.subclass["TimeThief"] = "allow"
+getBirthDescriptor("class","Chronomancer").descriptor_choices.subclass["Time Thief"] = "allow"

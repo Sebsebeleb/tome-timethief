@@ -6,16 +6,15 @@ req1 = {
 }
 
 
+
 newTalent{
-	name = "Blessing of the Past", short_name = "BLESSING_OF_THE_PAST",
+	name = "Back to the Past", short_name = "BACK_TO_THE_PAST",
 	type = {"chronomancy/past", 1},
 	points = 5,
+    cooldown = 4,
 	require = req1,
 	tactical = { ESCAPE = 2 },
-	mode = "passive",
-    no_unlearn_last=true,
-
-    updateClones = function(self, t) -- Updates clones per movement/turn passed.
+	updateClones = function(self, t) -- Updates clones per movement/turn passed.
         local new_clones = {}
         local oldest_clone --FIXME: Not working when there are less than 3 clones for some reason
         for i, v in ipairs(self.tthief_clones) do
@@ -39,14 +38,9 @@ newTalent{
             oldest_clone.eff.overlay.color_br = 200
             oldest_clone.eff.overlay.color_bb = 100
             oldest_clone.eff.overlay.color_bg = 50
-        end
-    end,
-
-	-- copy from Conveyance / Phase Door
-	getRange = function(self, t) return self:combatLimit(self:combatTalentSpellDamage(t, 10, 15), 40, 4, 0, 13.4, 9.4) end, -- Limit to range 40
-	getRadius = function(self, t) return math.floor(self:combatTalentLimit(t, 0, 6, 2)) end, -- Limit to radius 0
-	getMin = function(self, t) return math.ceil(self:combatTalentLimit(t, 10, 1, 5)) end, -- minimum radius caps at 10
-
+		end
+	end,
+    getDamage = function(self, t) return self:combatTalentWeaponDamage(t, 0.2, 0.7) end,
 	callbackOnMove = function(self, t, moved, force, ox, oy)
         if not moved or not ox or not oy then
             return moved, force, ox, oy
@@ -72,19 +66,6 @@ newTalent{
 
         return moved, force, ox, oy
 	end,
-	info = function(self, t)
-		return ([[Hello.]]):format()
-	end,
-  }
-
-newTalent{
-	name = "Back to the Past", short_name = "BACK_TO_THE_PAST",
-	type = {"chronomancy/past", 2},
-	points = 5,
-    cooldown = 4,
-	require = req1,
-	tactical = { ESCAPE = 2 },
-    getDamage = function(self, t) return self:combatTalentWeaponDamage(t, 0.2, 0.7) end,
     action = function(self, t)
         if not self.tthief_clones then
             return nil
@@ -146,7 +127,7 @@ newTalent{
 
 newTalent{
     name = "Aura of Sloth", short_name = "AURA_OF_SLOTH",
-    type = {"chronomancy/past", 3},
+    type = {"chronomancy/past", 2},
     points = 5,
     require = req1,
     tactical = { ESCAPE = 2 },
@@ -178,7 +159,7 @@ newTalent{
 
 newTalent{
     name = "Timely dash", short_name = "TIMELY_DASH",
-    type = {"chronomancy/past", 4},
+    type = {"chronomancy/past", 3},
     points = 5,
     require = req1,
     tactical = { ESCAPE = 2 },

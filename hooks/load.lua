@@ -1,3 +1,5 @@
+package.loaded['mod.dialogs.DeathDialog'] = nil
+
 local class = require"engine.class"
 local ActorTalents = require"engine.interface.ActorTalents"
 local ActorResource = require"engine.interface.ActorResource"

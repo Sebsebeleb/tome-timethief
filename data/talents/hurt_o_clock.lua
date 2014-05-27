@@ -5,12 +5,41 @@ req1 = {
     level = function(level) return 0 + (level-1)  end,
 }
 
+newTalent{
+	name = "Damage Theft", short_name = "DAMAGE_THEFT",
+	type = {"chronomancy/hurtoclock", 1},
+	points = 5,
+	require = tthief_mag_req1,
+	tactical = { ESCAPE = 2 },
+	mode = "passive",
+	getDuration = function(self, t) return 5 end,
+	getSteal = function(self, t)
+		return self:combatTalentSpellDamage(t, 8, 65)
+	end,
+	getDecay = function(self, t, current_bonus)
+		return math.min(0, (current_bonus - 4) * 0.75)
+	end,
+	callbackOnMeleeAttack = function(self, t, target, hitted, crit, weapon, damtype, mult, dam)
+		if hitted then
+			self:setEffect(self.EFF_DAMAGE_STEAL, t.getDuration(self, t), {power=t.getSteal(self, t)})
+		end
+	end,
+	info = function(self, t)
+		local damage, increase, decay
+		local eff = self.hasEffect and self:hasEffect(self.EFF_DAMAGE_STEAL)
+		damage = eff and eff.power or 0
+		increase = t.getSteal(self, t)
+		decay = t.getDecay(self, t, damage)
+		return ([[Each time you hit an enemy you deal %d extra damage as paradox. This bonus damage will be increased by %d every turn you move more than 1 square. Any turn you do not attack or move more than 1 square, the bonus damage will decay by %d (5+25%% of current bonus damage). The damage increase increases with talent level and spellpower]])
+		:format(damage, increase, decay)
+	end
+}
 
 newTalent{
     name = "Stabbystab", short_name = "STABBYSTAB",
-    type = {"chronomancy/hurtoclock", 1},
+    type = {"chronomancy/hurtoclock", 2},
     points = 5,
-    require = req1,
+    require = tthief_mag_req2,
     tactical = { ESCAPE = 2 },
     action = function(self, t)
 
@@ -30,9 +59,9 @@ newTalent{
 
 newTalent{
     name = "Tick tock time to stop", short_name = "TICK_TOCK_TIME_TO_STOP",
-    type = {"chronomancy/hurtoclock", 2},
+    type = {"chronomancy/hurtoclock", 3},
     points = 5,
-    require = req1,
+    require = tthief_mag_req3,
     tactical = { ESCAPE = 2 },
     action = function(self, t)
 
@@ -51,7 +80,7 @@ newTalent{
 
 newTalent{
     name = "Time to die", short_name = "TIME_TO_DIE",
-    type = {"chronomancy/hurtoclock", 3},
+    type = {"chronomancy/hurtoclock", 4},
     points = 5,
     require = req1,
     tactical = { ESCAPE = 2 },
@@ -103,32 +132,6 @@ newTalent{
     end
 }
 
-newTalent{
-    name = "Damage Theft", short_name = "DAMAGE_THEFT",
-    type = {"chronomancy/hurtoclock", 4},
-    points = 5,
-    require = req1,
-    tactical = { ESCAPE = 2 },
-    mode = "passive",
-    getDuration = function(self, t) return 5 end,
-    getSteal = function(self, t)
-        return self:combatTalentSpellDamage(t, 5, 50)
-    end,
-    callbackOnMeleeAttack = function(self, t, target, hitted, crit, weapon, damtype, mult, dam)
-        if hitted then
-            self:setEffect(self.EFF_DAMAGE_STEAL, t.getDuration(self, t), {power=t.getSteal(self, t)})
-        end
-    end,
-    info = function(self, t)
-        local damage, increase, decay
-        local eff = self.hasEffect and self:hasEffect(self.EFF_DAMAGE_STEAL)
-        damage = eff and eff.power or 0
-        increase = t.getSteal(self, t)
-        decay = damage *0.70
-        return ([[Each time you hit an enemy you deal %d extra damage as paradox. This bonus damage will be increased by %d every turn you move more than 1 square. Any turn you do not attack or move more than 1 square, the bonus damage will decay by %d (30%% of current bonus damage). The damage increase increases with talent level and spellpower]])
-        :format(damage, increase, decay)
-    end
-}
 
 newTalent{
     name = "Some dash", short_name = "SOME_DASH",
