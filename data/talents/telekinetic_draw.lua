@@ -45,11 +45,15 @@ newTalent{
 		local target
         local tg = {type="hit", range=self:getTalentRange(t)}
         local tx, ty = self:getTarget(tg)
-        if tx and ty and core.fov.distance(tx, ty, other_self.x, other_self.y) <= 1 then
+        if tx and ty then
             local _ _, tx, ty = self:canProject(tg, tx, ty)
             if not tx then return nil end
 
-			local targets = self:archeryAcquireTargets({type="beam", x=tx, y=ty}, {one_shot=true})
+           	if not core.fov.distance(tx, ty, other_self.x, other_self.y) <= 1 then
+           		game.logPlayer(self, "You must target a square next to your other self")
+           	end
+
+			local targets = self:archeryAcquireTargets({type="beam"}, {one_shot=true, x=tx, y=ty})
 			if not targets then return end
 			self:archeryShoot(targets, t, {type="beam"}, {mult=self:combatTalentWeaponDamage(t, 1, 1.5), apr=1000})
 
