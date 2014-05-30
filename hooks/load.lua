@@ -9,14 +9,15 @@ local DamageType = require"engine.DamageType"
 local Zone = require"engine.Zone"
 
 
-class:bindHook("ToME:load",
-    function(self, data)
-    -- DamageType:loadDefinition("/data-timethief/new_damage_types.lua")
-        ActorTalents:loadDefinition("/data-timethief/talents.lua")
-        Birther:loadDefinition("/data-timethief/birth/classes/chronomancy.lua")
-        ActorTemporaryEffects:loadDefinition("/data-timethief/timed_effects/timed_effects.lua")
-    end)
+class:bindHook("ToME:load", function(self, data)
+-- DamageType:loadDefinition("/data-timethief/new_damage_types.lua")
+    ActorTalents:loadDefinition("/data-timethief/talents.lua")
+    Birther:loadDefinition("/data-timethief/birth/classes/chronomancy.lua")
+    ActorTemporaryEffects:loadDefinition("/data-timethief/timed_effects/timed_effects.lua")
+end)
 
+
+-- Limit damage dealt by archery from the archery type based on "Augumented Shot" talent
 -- class:bindHook("Combat:attackTargetWith", function(self, data)
 -- 	local t = self:getTalentFromId(self.T_OPPORTUNE_STRIKE)
 -- 	if data.hitted and not data.target.dead and data.weapon and data.weapon.talented== "double" and not self:attr("no_doublestrike") and rng.percent(t.getChance(self, t)) then

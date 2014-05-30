@@ -35,6 +35,7 @@ newBirthDescriptor{
 
       [ActorTalents.T_WEAPON_COMBAT] = 1,
       [ActorTalents.T_BACK_TO_THE_PAST] = 1,
+      [ActorTalents.T_SHARED_MIND] = 1,
    },
    copy = {
 

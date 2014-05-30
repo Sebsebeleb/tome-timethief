@@ -34,6 +34,7 @@ local function makeAlly(self)
 		resolvers.talents{
 			[Talents.T_SHOOT] = 1,
 			[Talents.T_AUGUMENTED_SHOTS] = 1,
+			[Talents.T_SHARED_MIND] = 1,
 		},
 
 		resolvers.equip{ id=true,
@@ -141,5 +142,61 @@ newTalent{
 	end,
 	info = function(self, t)
 		return ([[Blahblah.]])
+	end
+}
+
+newTalent{
+	name = "Shared mind",
+	type = {"chronomancy/other", 1},
+	require = req1,
+	mode = "sustained",
+	points = 1,
+	cooldown = 0,
+	no_energy = true,
+	no_npc_use = true,
+	no_unlearn_last = true,
+	callbackOnActBase = function(self, t)
+		local see_hostile = false
+		for k, v in pairs(self.fov.actors_dist) do
+			if v and self:reactionToward(v) < 0 and self:canSee(v) then --We assume we see the same as our other self; TODO
+				see_hostile = true
+				break
+			end
+		end
+
+		if see_hostile then
+			game.party:setPlayer(self, true)
+		end
+	end,
+	activate = function(self, t)
+		--Shouldnt really happen unless you somehow steal or hack in this talent somewhere
+		if not (self.summoner or self.tthief_ally) then
+			return nil
+		end
+
+		local other = self.tthief_ally or self.summoner
+		if (self.tthief_shared_mind_ignore == nil) and (not other:isTalentActive(other.T_SHARED_MIND)) then
+			other.tthief_shared_mind_ignore = true
+			other:forceUseTalent(other.T_SHARED_MIND, {ignore_energy=true})
+		end
+		self.tthief_shared_mind_ignore = nil
+		return true
+	end,
+	deactivate = function(self, t)
+		--Shouldnt really happen unless you somehow steal or hack in this talent somewhere
+		if not (self.summoner or self.tthief_ally) then
+			return nil
+		end
+
+		local other = self.tthief_ally or self.summoner
+		if (self.tthief_shared_mind_ignore == nil) and (other:isTalentActive(other.T_SHARED_MIND)) then
+			other.tthief_shared_mind_ignore = true
+			other:forceUseTalent(other.T_SHARED_MIND, {ignore_energy=true})
+		end
+		self.tthief_shared_mind_ignore = nil
+		return true
+	end,
+	info = function(self, t)
+		return([[While this is sustained, you will switch control to the other you when it its turn, as long as theres any enemy in vision of either you.]])
 	end
 }

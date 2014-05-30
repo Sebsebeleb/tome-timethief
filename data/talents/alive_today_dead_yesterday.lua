@@ -7,7 +7,7 @@ req1 = {
 
 newTalent{
 	name = "Time Bullet", short_name = "TIME_BULLET",
-	type = {"chronomancy/alive_today", 2},
+	type = {"chronomancy/alive_today", 1},
 	mode = "passive",
 	points = 5,
 	require = req1,
@@ -36,7 +36,7 @@ newTalent{
 
 newTalent{
 	name = "No Leg is Power", short_name = "NO_LEG_IS_POWER",
-	type = {"chronomancy/alive_today", 3},
+	type = {"chronomancy/alive_today", 1},
 	mode = "passive",
 	points = 5,
 	require = req1,
@@ -50,7 +50,7 @@ newTalent{
 
 newTalent{
 	name = "Strike from before", short_name = "STRIKE_FROM_BEFORE",
-	type = {"chronomancy/alive_today", 4},
+	type = {"chronomancy/alive_today", 1},
 	points = 5,
 	require = req1,
 	tactical = { ESCAPE = 2 },
@@ -92,7 +92,7 @@ newTalent{
 
 newTalent{
 	name = "The buff", short_name = "THE_BUFF",
-	type = {"chronomancy/alive_today", 5},
+	type = {"chronomancy/alive_today", 1},
 	mode = "passive",
 	points = 5,
 	require = req1,

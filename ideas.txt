@@ -61,6 +61,8 @@ Ability:
 	something - Shoot projectiles towards your clones? toward a clone? with knockback?
 	passive - projectiles are shot from your original position to your new position when you mvoe more than 1 distance. Possibly homing? effect both on enemies and allies? maybe even on clones
 	Cause your temporal clones to turn into temporary walls?
+	aoe mapeffect that modifies projectiles
+	absorb damage as paradox gain, but chance of anomalies upon taking damage
 
 *Level 10 unlockable tree, Damage Wells
 	1st talent: causes certain talents to drop a paradox well on the floor, causing minor damage to enemies in radius 1. The support guy can "activate" them for different effects.
@@ -69,6 +71,7 @@ Misc -- Not sure which one should have them
 	Somehow create a wall?
 	tile 1 map effect wells that can be used by other skills
 	Channeled ability
+
 
 Second character - Support/ranged-ish with psi archery
 	Psi grappling arrow: pulls you and another creature towards each other, ending up as close to one another as possible (stopped by obstacles)
